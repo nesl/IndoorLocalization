@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="hello world!" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Accelerometer" />
+
+    <TextView
+        android:id="@+id/xvalue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="X Value" />
+
+    <TextView
+        android:id="@+id/yvalue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Y Value" />
+
+    <TextView
+        android:id="@+id/zvalue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Z Value" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Orientation" />
+
+    <TextView
+        android:id="@+id/xvalues"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="X Value" />
+
+    <TextView
+        android:id="@+id/yvalues"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Y Value" />
+
+    <TextView
+        android:id="@+id/zvalues"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Z Value" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView" >
+    </TextView>
+
+</LinearLayout>
