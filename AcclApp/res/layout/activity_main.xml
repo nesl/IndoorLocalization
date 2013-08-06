@@ -35,5 +35,46 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/yval"
     />
+    
+    <TextView
+    android:textSize="20dp"
+    android:id="@+id/aval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/zval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/bval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/aval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/cval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/bval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/dval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/cval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/eval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/dval"
+    />
+    
+ </RelativeLayout>
    
-</RelativeLayout>
