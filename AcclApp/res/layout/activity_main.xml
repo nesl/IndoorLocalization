@@ -76,5 +76,52 @@
     android:layout_below="@+id/dval"
     />
     
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/yawval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/eval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/pitchval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/yawval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/rollval"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/pitchval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/xvelocity"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/rollval"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/yvelocity"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/xvelocity"
+    />
+    
+    <TextView 
+    android:textSize="20dp"
+    android:id="@+id/zvelocity"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/yvelocity"
+    />
  </RelativeLayout>
    
