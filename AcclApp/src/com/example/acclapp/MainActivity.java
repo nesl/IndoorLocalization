@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.location.Location; 
 import android.location.LocationListener; 
 import android.location.LocationManager; 
+import com.example.acclapp.RingBuffer; 
 
 public class MainActivity extends Activity implements SensorEventListener, LocationListener {
 
@@ -45,9 +46,9 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	float[] accel = new float[3]; 
 	
 	//array for getting linear acceleration data
-	float[] linearacc_data_x = new float[1000];
-	float[] linearacc_data_y = new float[1000];
-	float[] linearacc_data_z = new float[1000];
+	RingBuffer linearacc_data_x = new RingBuffer(); 
+	RingBuffer linearacc_data_y = new RingBuffer();
+	RingBuffer linearacc_data_z = new RingBuffer();
 	
 	// variable for collection function
 	float xacc; 
@@ -135,35 +136,17 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	}
 	
 	public void poparr() {
-		// for loop to populate array 
-		for (int i = 0; i < 1000; i++){
-				 linearacc_data_x[i] = xacc;
-				 linearacc_data_y[i] = yacc; 
-				 linearacc_data_z[i] = zacc;
-		} 
+		//  to populate array 
+				 linearacc_data_x.add(xacc);
+				 linearacc_data_y.add(yacc); 
+				 linearacc_data_z.add(zacc); 
 	}
 	
 	public void integratearr(){
 		//integrating the collected data
-		if (xacc > yacc && xacc > zacc) {
-			for (int i=0; i < 1000; i=i+1){
-				xtemp = xtemp + linearacc_data_x[i]; 
-				ytemp = 0; 
-				ztemp = 0;
-			}
-		}else if (yacc > xacc && yacc > zacc){
-			for (int i=0; i < 1000; i=i+1){
-				ytemp = ytemp + linearacc_data_y[i];
-				xtemp = 0; 
-				ztemp = 0; 
-			} 
-		}else if (zacc > xacc && zacc > yacc){
-			for (int i=0; i < 1000; i=i+1){
-				ztemp = ztemp + linearacc_data_z[i];
-				xtemp = 0; 
-				ytemp = 0; 
-			}  
-		}
+				xtemp = (float) (xtemp + (0.2) * linearacc_data_x.get()); 
+				ytemp = (float) (ytemp + (0.2) * linearacc_data_y.get());
+				ztemp = (float) (ztemp + (0.2) * linearacc_data_z.get()); 
 	}
 	 
 	@Override 
