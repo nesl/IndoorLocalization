@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	float ztemp = 0;  
   	
 	// variable for storage function
-	//File myFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/sensorval.txt");
+	File myFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/sensorval.txt");
 	boolean append; 
 	
 	//"Overrides" overwrite a function that is included by the Android operating system 
@@ -150,14 +150,12 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	//Method to write to my internal storage, which value should I use for ACC? From ring or variable?
 
 	public void writeInternalStorage(float someXVal, float someYVal, float someZVal){
-		try{
-			File myFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/LinACCData.txt"); 
+		try{ 
 			FileOutputStream fOut = new FileOutputStream(myFile, append);
 			append = true; 
 			OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
-			myOutWriter.append(Float.toString(someXVal) + "," + Float.toString(someYVal) + "," +Float.toString(someZVal) + "\n");
-			myOutWriter.close();
-			fOut.close(); 
+			myOutWriter.write(Float.toString(someXVal) + "," + Float.toString(someYVal) + "," +Float.toString(someZVal) + "\n");
+			myOutWriter.close(); 
           } catch (Exception e) {
               System.out.println("Exception"); 
           }
