@@ -2,6 +2,7 @@ package com.example.acclapp;
 
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.app.Activity;
 import android.view.Menu;
 import android.app.Activity;
@@ -22,6 +23,13 @@ import android.location.Location;
 import android.location.LocationListener; 
 import android.location.LocationManager; 
 import com.example.acclapp.RingBuffer; 
+import java.io.File; 
+import java.io.BufferedWriter; 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class MainActivity extends Activity implements SensorEventListener, LocationListener {
 
@@ -54,12 +62,16 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	float xacc; 
 	float yacc; 
 	float zacc; 
+
 	
 	// variable for integration function
 	float xtemp = 0; 
 	float ytemp = 0; 
-	float ztemp = 0; 
-	
+	float ztemp = 0;  
+  	
+	// variable for storage function
+	//File myFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/sensorval.txt");
+	boolean append; 
 	
 	//"Overrides" overwrite a function that is included by the Android operating system 
 	@Override
@@ -69,7 +81,7 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 		
 		//Method to setContentView
 		setContentView(R.layout.activity_main);
-		
+	
 		//initializing the variables to be the sensors they need to be, using a reference to a method in the SensorManager class 
 		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		mGravAcc = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); 
@@ -135,6 +147,23 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 		
 	}
 	
+	//Method to write to my internal storage, which value should I use for ACC? From ring or variable?
+
+	public void writeInternalStorage(float someXVal, float someYVal, float someZVal){
+		try{
+			File myFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+ "/LinACCData.txt"); 
+			FileOutputStream fOut = new FileOutputStream(myFile, append);
+			append = true; 
+			OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+			myOutWriter.append(Float.toString(someXVal) + "," + Float.toString(someYVal) + "," +Float.toString(someZVal) + "\n");
+			myOutWriter.close();
+			fOut.close(); 
+          } catch (Exception e) {
+              System.out.println("Exception"); 
+          }
+	}
+  
+	
 	public void poparr() {
 		//  to populate array 
 				 linearacc_data_x.add(xacc);
@@ -144,9 +173,9 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	
 	public void integratearr(){
 		//integrating the collected data
-				xtemp = (float) (xtemp + (0.2) * linearacc_data_x.get()); 
-				ytemp = (float) (ytemp + (0.2) * linearacc_data_y.get());
-				ztemp = (float) (ztemp + (0.2) * linearacc_data_z.get()); 
+				xtemp = (float) (xtemp + (0.02) * linearacc_data_x.get()); 
+				ytemp = (float) (ytemp + (0.02) * linearacc_data_y.get());
+				ztemp = (float) (ztemp + (0.02) * linearacc_data_z.get()); 
 	}
 	 
 	@Override 
@@ -159,11 +188,14 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 			//linear acceleration eliminates gravity
 			xacc = event.values[0];  
 			yacc = event.values[1]; 
-			zacc = event.values[2]; 			
+			zacc = event.values[2]; 	
 			
 			//call to the populate method and integrate method
 			poparr(); 
 			integratearr(); 
+			
+			//call to store values in a file------HOPEFULLY 
+			writeInternalStorage(xacc, yacc, zacc); 
 			
 			//actually taking a TextView object and declaring what text it should read
 			x.setText("X axis" +"\t\t"+ xacc);
@@ -205,7 +237,7 @@ public class MainActivity extends Activity implements SensorEventListener, Locat
 	@Override 
 	protected void onResume() { 
 		super.onResume() ; 
-		mSensorManager.registerListener(this, mAcc, SensorManager.SENSOR_DELAY_NORMAL);
+		mSensorManager.registerListener(this, mAcc, SensorManager.SENSOR_DELAY_GAME);
 		mSensorManager.registerListener(this, mGeo, SensorManager.SENSOR_DELAY_NORMAL);
 		mSensorManager.registerListener(this, mGravAcc, SensorManager.SENSOR_DELAY_NORMAL); 
 	}
